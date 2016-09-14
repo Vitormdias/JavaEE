@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+   
+    <h:head>
+        <title>Cadastro Aluno</title>
+        <meta charset="UTF-8"/>
+        <style>
+        	form {
+        		background-color: #F5F5F5;
+        	}
+        	input[type=text], select {
+			    width: 100%;
+			    padding: 12px 20px;
+			    margin: 8px 0;
+			    display: inline-block;
+			    border: 1px solid #ccc;
+			    border-radius: 4px;
+			    box-sizing: border-box;
+			}
+			input[type=submit] {
+			    width: 100%;
+			    background-color: #4CAF50;
+			    color: white;
+			    padding: 14px 20px;
+			    margin: 8px 0;
+			    border: none;
+			    border-radius: 4px;
+			    cursor: pointer;
+			}
+			input[type=submit]:hover {
+			    background-color: #45a049;
+			}
+			
+			div {
+			    border-radius: 5px;
+			    background-color: #f2f2f2;
+			    padding: 20px;
+			}
+        </style>
+    </h:head>
+    
+    <h:body>
+    	<h2>Cadastro</h2>
+    	<h:form>
+	    	<h:panelGrid columns = "2">
+		    	Matricula: <h:inputText value="#{alunoManagedBean.aluno.matricula}"/>
+		    	Nome: <h:inputText value="#{alunoManagedBean.aluno.nome}"/>
+		    	Curso: <h:inputText value="#{alunoManagedBean.aluno.curso}"/>
+		    	Nota 1: <h:inputText value="#{alunoManagedBean.aluno.nota1}"/>
+		    	Nota 2: <h:inputText value="#{alunoManagedBean.aluno.nota2}"/>
+		    	<h:commandButton value = "Salvar" action="#{alunoManagedBean.salvar}"/>
+		    	<h:commandButton value="Pesquisar" action="#{alunoManagedBean.pesquisar}"/>	
+	    		
+	    	</h:panelGrid>
+    	</h:form>
+    	<h2>Todos Alunos</h2>
+    	
+    	<h:dataTable value="#{alunoManagedBean.alunos}" var="alu" 
+    				 border="1"
+    	>
+    		<h:column>
+    		    <f:facet name="header">Matricula</f:facet>
+    			<h:outputText value="#{alu.matricula}"/>
+    		</h:column>	
+    		
+    		<h:column>
+    			<f:facet name="header">Nome Aluno</f:facet>
+    			<h:outputText value="#{alu.nome}"/>
+    		</h:column>
+    			
+    		<h:column>
+    			<f:facet name="header">Nome Curso</f:facet>
+    			<h:outputText value="#{alu.curso}"/>
+    		</h:column>	
+    		
+    		<h:column>
+    			<f:facet name="header">Excluir</f:facet>
+    			<h:form>
+    				<h:commandButton value="Excluir" action="#{alunoManagedBean.excluir(alu)}"/>
+    			</h:form>
+    		</h:column>	
+    	</h:dataTable>
+    	
+    	<br/>
+    	<h2>Alunos aprovados</h2>
+    	<h:dataTable value="#{alunoManagedBean.alunosAprov}" var="alu" 
+    				 border="1"
+    	>
+    		<h:column>
+    		    <f:facet name="header">Matricula</f:facet>
+    			<h:outputText value="#{alu.matricula}"/>
+    		</h:column>	
+    		
+    		<h:column>
+    			<f:facet name="header">Nome Aluno</f:facet>
+    			<h:outputText value="#{alu.nome}"/>
+    		</h:column>
+    			
+    		<h:column>
+    			<f:facet name="header">Nome Curso</f:facet>
+    			<h:outputText value="#{alu.curso}"/>
+    		</h:column>		
+    	</h:dataTable>
+    	
+    	<h2>Alunos reprovados</h2>
+    	<h:dataTable value="#{alunoManagedBean.alunosReprov}" var="alu" 
+    				 border="1"
+    	>
+    		<h:column>
+    		    <f:facet name="header">Matricula</f:facet>
+    			<h:outputText value="#{alu.matricula}"/>
+    		</h:column>	
+    		
+    		<h:column>
+    			<f:facet name="header">Nome Aluno</f:facet>
+    			<h:outputText value="#{alu.nome}"/>
+    		</h:column>
+    			
+    		<h:column>
+    			<f:facet name="header">Nome Curso</f:facet>
+    			<h:outputText value="#{alu.curso}"/>
+    		</h:column>		
+    	</h:dataTable>
+    	
+    	<h2>Maiores Notas</h2>
+    	<h:dataTable value="#{alunoManagedBean.maioresNotas}" var="alu" 
+    				 border="1"
+    	>
+    		<h:column>
+    		    <f:facet name="header">Matricula</f:facet>
+    			<h:outputText value="#{alu.matricula}"/>
+    		</h:column>	
+    		
+    		<h:column>
+    			<f:facet name="header">Nome Aluno</f:facet>
+    			<h:outputText value="#{alu.nome}"/>
+    		</h:column>
+    			
+    		<h:column>
+    			<f:facet name="header">Nome Curso</f:facet>
+    			<h:outputText value="#{alu.curso}"/>
+    		</h:column>		
+    	</h:dataTable>
+    	
+    </h:body>
+</html>

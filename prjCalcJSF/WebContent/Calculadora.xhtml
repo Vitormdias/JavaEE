@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+   
+    <h:head>
+        <title>Somar</title>
+        <meta charset="UTF-8"/>
+        <style>
+        	form {
+        		background-color: #F5F5F5;
+        	}
+        	input[type=text], select {
+			    width: 100%;
+			    padding: 12px 20px;
+			    margin: 8px 0;
+			    display: inline-block;
+			    border: 1px solid #ccc;
+			    border-radius: 4px;
+			    box-sizing: border-box;
+			}
+			input[type=submit] {
+			    width: 100%;
+			    background-color: #4CAF50;
+			    color: white;
+			    padding: 14px 20px;
+			    margin: 8px 0;
+			    border: none;
+			    border-radius: 4px;
+			    cursor: pointer;
+			}
+			input[type=submit]:hover {
+			    background-color: #45a049;
+			}
+			
+			div {
+			    border-radius: 5px;
+			    background-color: #f2f2f2;
+			    padding: 20px;
+			}
+        </style>
+    </h:head>
+    
+    <h:body>
+    	<h2>Calculadora</h2>
+    	<h:form>
+    		Digite o primeiro numero:
+    		<h:inputText value="#{calcJSF.n1}"/>
+    		Digite o segundo numero:
+    		<h:inputText value="#{calcJSF.n2}"/>
+    		<h:selectOneListbox value="#{calcJSF.option}">
+    			<f:selectItem itemLabel="Adição" itemValue="+" />
+            	<f:selectItem itemLabel="Subtração" itemValue="-" />
+           		<f:selectItem itemLabel="Multiplicação" itemValue="*" />
+    			<f:selectItem itemLabel="Divisão" itemValue="/" />
+    		</h:selectOneListbox>
+    		<h:commandButton value="Enviar"
+    						 action="#{calcJSF.op}"/>
+    		Resultado: <h:outputText value="#{calcJSF.resp}"/>
+    	</h:form>	
+    </h:body>
+</html>

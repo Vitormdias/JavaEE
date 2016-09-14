@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+   
+    <h:head>
+        <title>Cardapio</title>
+        <meta charset="UTF-8"/>
+        <style>
+        	form {
+        		background-color: #F5F5F5;
+        	}
+        	input[type=text], select {
+			    width: 100%;
+			    padding: 12px 20px;
+			    margin: 8px 0;
+			    display: inline-block;
+			    border: 1px solid #ccc;
+			    border-radius: 4px;
+			    box-sizing: border-box;
+			}
+			input[type=submit] {
+			    width: 100%;
+			    background-color: #4CAF50;
+			    color: white;
+			    padding: 14px 20px;
+			    margin: 8px 0;
+			    border: none;
+			    border-radius: 4px;
+			    cursor: pointer;
+			}
+			input[type=submit]:hover {
+			    background-color: #45a049;
+			}
+			
+			div {
+			    border-radius: 5px;
+			    background-color: #f2f2f2;
+			    padding: 20px;
+			}
+        </style>
+    </h:head>
+    
+    <h:body>
+    	<h2>Cardapio</h2>
+    	<h:form>
+    		Selecione o prato:
+    		<h:selectManyListbox value="#{cardManagedBean.prato}">
+	            <f:selectItem itemLabel="Massa" itemValue="Massa" />
+	            <f:selectItem itemLabel="Peixe" itemValue="Peixe" />
+	            <f:selectItem itemLabel="Carne" itemValue="Carne" />
+        	</h:selectManyListbox>
+    		
+    		Acompanhamentos:
+    		<h:selectManyCheckbox value="#{cardManagedBean.acomp}">
+    			<f:selectItem itemLabel="Salada" itemValue="Salada"/>
+    			<f:selectItem itemLabel="Legumes" itemValue="Legumes"/>
+    			<f:selectItem itemLabel="Farofa" itemValue="Farofa"/>
+    			<f:selectItem itemLabel="Fritas" itemValue="Fritas"/>
+    		</h:selectManyCheckbox>
+    		
+    		Convenio:
+    		<h:selectOneListbox value="#{cardManagedBean.conv}">
+    			<f:selectItem itemLabel="Placomp" itemValue="Placomp"/>
+    			<f:selectItem itemLabel="Google" itemValue="Google"/>
+    			<f:selectItem itemLabel="Abutua" itemValue="Abutua"/>
+    			<f:selectItem itemLabel="Prefeitura" itemValue="Prefeitura"/>
+    			<f:selectItem itemLabel="Nenhum" itemValue="Nenhum"/>
+    		</h:selectOneListbox>
+    		
+    		Observações:
+    		<h:inputTextarea rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} characters remaining." autoResize="false" />
+    		
+    		<h:commandButton value="Enviar"
+    						 action="#{cardManagedBean.calcula}"/>
+    		<br></br>
+    		<br></br>
+    		Resultado: <h:outputText value="#{cardManagedBean.preco}"/>
+    	</h:form>	
+    </h:body>
+</html>
