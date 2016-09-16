@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+   
+    <h:head>
+        <title>Cliente</title>
+        <meta charset="UTF-8"/>
+        <style>
+        	form {
+        		background-color: #F5F5F5;
+        	}
+        	input[type=text], select {
+			    width: 100%;
+			    padding: 12px 20px;
+			    margin: 8px 0;
+			    display: inline-block;
+			    border: 1px solid #ccc;
+			    border-radius: 4px;
+			    box-sizing: border-box;
+			}
+			input[type=submit] {
+			    width: 100%;
+			    background-color: #4CAF50;
+			    color: white;
+			    padding: 14px 20px;
+			    margin: 8px 0;
+			    border: none;
+			    border-radius: 4px;
+			    cursor: pointer;
+			}
+			input[type=submit]:hover {
+			    background-color: #45a049;
+			}
+			
+			div {
+			    border-radius: 5px;
+			    background-color: #f2f2f2;
+			    padding: 20px;
+			}
+        </style>
+    </h:head>
+    
+    <h:body>
+    	<h2>Cadastro</h2>
+    	<h:form>
+    		<h:panelGrid>
+    			Código: <h:inputText value="#{clienteManagedBean.cliente.codigo}"/>
+    			Nome:   <h:inputText value="#{clienteManagedBean.cliente.nome}"/>
+    			Saldo:  <h:inputText value="#{clienteManagedBean.cliente.saldo}"/>
+    			Ativo:  <h:selectBooleanCheckbox value="#{clienteManagedBean.cliente.ativo}"/>
+    			Senha:  <h:inputSecret value="#{clienteManagedBean.cliente.senha}"/>
+    			Sexo: 
+    			<h:selectOneRadio value="#{clienteManagedBean.cliente.sexo}">
+    				<f:selectItem itemValue="Masculino" itemLabel="Masculino"></f:selectItem>
+    				<f:selectItem itemValue="Feminino" itemLabel="Feminino"></f:selectItem>
+    			</h:selectOneRadio>
+    			<h:commandButton value="Salvar" action="#{clienteManagedBean.salvar}"/>
+    			<h:commandButton value="Pesquisar"
+    						  action="#{clienteManagedBean.pesquisar}"
+    						  disabled="#{clienteManagedBean.alteracaoAtiva}"
+    						  
+    		 	/>
+    		 
+    		 	<h:commandButton value="Cancel"
+    						  action="#{clienteManagedBean.cancel}"
+    						  rendered="#{clienteManagedBean.alteracaoAtiva}"
+    						  
+    			 />
+    		</h:panelGrid>
+    	</h:form>
+    	
+    	<h2>Clientes</h2>
+    	<h:dataTable value="#{clienteManagedBean.clientes}" var="cli"
+    				 border="1" >
+    		<h:column>
+    			<f:facet name="header">Código</f:facet>
+    			<h:outputText value="#{cli.codigo}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Nome</f:facet>
+    			<h:outputText value="#{cli.nome}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Saldo</f:facet>
+    			<h:outputText value="#{cli.saldo}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Ativo</f:facet>
+    			<h:outputText value="#{cli.ativo}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Sexo</f:facet>
+    			<h:outputText value="#{cli.sexo}"/>
+    		</h:column>
+    		
+    		<h:column>
+             <f:facet name="header">Excluir</f:facet>
+             <h:form>
+                  <h:commandButton value="Excluir"
+                   action="#{clienteManagedBean.excluir(cli)}"
+                  />
+             </h:form>
+        	</h:column>
+    		
+    	</h:dataTable>
+    	
+    	<h2>Clientes Ativos</h2>
+    	<h:dataTable value="#{clienteManagedBean.ativos}" var="cli"
+    				 border="1">
+    		<h:column>
+    			<f:facet name="header">Código</f:facet>
+    			<h:outputText value="#{cli.codigo}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Nome</f:facet>
+    			<h:outputText value="#{cli.nome}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Saldo</f:facet>
+    			<h:outputText value="#{cli.saldo}"/>
+    		</h:column>
+    		
+    		
+    		
+    	</h:dataTable>
+    	
+    	<h2>Maiores Saldos</h2>
+    	<h:dataTable value="#{clienteManagedBean.listaOrdenada}" var="cli"
+    				 border="1">
+    		<h:column>
+    			<f:facet name="header">Código</f:facet>
+    			<h:outputText value="#{cli.codigo}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Nome</f:facet>
+    			<h:outputText value="#{cli.nome}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Saldo</f:facet>
+    			<h:outputText value="#{cli.saldo}"/>
+    		</h:column>
+    		
+    	</h:dataTable>
+    </h:body>
+</html>
