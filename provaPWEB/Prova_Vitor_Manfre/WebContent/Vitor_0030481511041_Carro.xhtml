@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+   
+    <h:head>
+        <title>Carro</title>
+        <meta charset="UTF-8"/>
+        <style>
+        	form {
+        		background-color: #F5F5F5;
+        	}
+        	input[type=text], select {
+			    width: 100%;
+			    padding: 12px 20px;
+			    margin: 8px 0;
+			    display: inline-block;
+			    border: 1px solid #ccc;
+			    border-radius: 4px;
+			    box-sizing: border-box;
+			}
+			input[type=submit] {
+			    width: 100%;
+			    background-color: #4CAF50;
+			    color: white;
+			    padding: 14px 20px;
+			    margin: 8px 0;
+			    border: none;
+			    border-radius: 4px;
+			    cursor: pointer;
+			}
+			input[type=submit]:hover {
+			    background-color: #45a049;
+			}
+			
+			div {
+			    border-radius: 5px;
+			    background-color: #f2f2f2;
+			    padding: 20px;
+			}
+        </style>
+    </h:head>
+    
+    <h:body>
+    	<h2>Cadastro</h2>
+    	<h:form>
+    		<h:panelGrid>
+    			Nome:   <h:inputText value="#{carroManagedBean.carro.nome}"/>
+    			Cor:  	<h:inputText value="#{carroManagedBean.carro.cor}"/>
+    			Ano:  	<h:inputText value="#{carroManagedBean.carro.ano}"/>
+    			Marca: 
+    			<h:selectOneRadio value="#{carroManagedBean.carro.marca}">
+    				<f:selectItem itemValue="GM" itemLabel="GM"></f:selectItem>
+    				<f:selectItem itemValue="VW" itemLabel="VW"></f:selectItem>
+    				<f:selectItem itemValue="Ford" itemLabel="Ford"></f:selectItem>
+    				<f:selectItem itemValue="Fiat" itemLabel="Fiat"></f:selectItem>
+    				<f:selectItem itemValue="Outra" itemLabel="Outra"></f:selectItem>
+    			</h:selectOneRadio>
+    			<h:commandButton value="Salvar" action="#{carroManagedBean.salvar}"/>
+    		</h:panelGrid>
+    	</h:form>
+    	
+    	<h2>Carros</h2>
+    	<h:dataTable value="#{carroManagedBean.carros}" var="car"
+    				 border="1" >
+    		<h:column>
+    			<f:facet name="header">Nome</f:facet>
+    			<h:outputText value="#{car.nome}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Cor</f:facet>
+    			<h:outputText value="#{car.cor}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Marca</f:facet>
+    			<h:outputText value="#{car.marca}"/>
+    		</h:column>
+    		
+    		<h:column>
+    			<f:facet name="header">Ano</f:facet>
+    			<h:outputText value="#{car.ano}"/>
+    		</h:column>
+    		
+    		<h:column>
+             <f:facet name="header">Excluir</f:facet>
+             <h:form>
+                  <h:commandButton value="Excluir"
+                   action="#{carroManagedBean.excluir(car)}"
+                  />
+             </h:form>
+        	</h:column>
+    		
+    	</h:dataTable>
+    	
+    </h:body>
+</html>

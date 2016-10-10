@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <title>Cadastro de Cidades</title>
+        <meta charset="UTF-8" />
+    </h:head>
+
+    <h:body>
+    	<h2>Cadastro Cidade</h2>
+      <h:form>	
+		<h:panelGrid columns="2">
+    		Cod:
+    		<h:inputText value="#{cidadeManagedBean.cidade.cod}"/>
+    		Nome: 
+    		<h:inputText value="#{cidadeManagedBean.cidade.nome}"/>
+    		Estado: 
+    		<h:inputText value="#{cidadeManagedBean.cidade.estado}"/>
+    		Pais: 
+    		<h:inputText value="#{cidadeManagedBean.cidade.pais}"/>
+    		Habitantes: 
+    		<h:inputText value="#{cidadeManagedBean.cidade.habitantes}"/>
+    	</h:panelGrid>
+    	
+    	<br/><h:commandButton value="Salvar Banco"
+    						  action="#{cidadeManagedBean.salvar}" />
+       </h:form>
+       
+       
+       <h1>Todas as Cidades</h1>
+       <h:dataTable value="#{cidadeManagedBean.allCidades}" var="c"
+                    border="1"  
+       >
+         <h:column>
+            <f:facet name="header">Código:</f:facet>
+             <h:outputText   value="#{c.cod}"/>
+         </h:column>
+         
+         <h:column>
+             <f:facet name="header">Nome:</f:facet>
+             <h:outputText   value="#{c.nome}"/>
+         </h:column>
+         
+         <h:column>
+             <f:facet name="header">Estado:</f:facet>
+             <h:outputText   value="#{c.estado}"/>
+         </h:column>
+         
+         <h:column>
+             <f:facet name="header">Pais:</f:facet>
+             <h:outputText   value="#{c.pais}"/>
+         </h:column>
+         
+         <h:column>
+             <f:facet name="header">Habitantes:</f:facet>
+             <h:outputText   value="#{c.habitantes}"/>
+         </h:column>
+         
+       </h:dataTable>
+	 
+    </h:body>
+</html>

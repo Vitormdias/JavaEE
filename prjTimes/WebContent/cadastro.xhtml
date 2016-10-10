@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <title>Cadastro de Times</title>
+        <meta charset="UTF-8" />
+    </h:head>
+
+    <h:body>
+    	<h2>Cadastro Livro</h2>
+      <h:form>	
+		<h:panelGrid columns="2">
+    		Cod:
+    		<h:inputText value="#{timeManagedBean.time.cod}"/>
+    		Nome: 
+    		<h:inputText value="#{timeManagedBean.time.nome}"/>
+    		Craque: 
+    		<h:inputText value="#{timeManagedBean.time.craque}"/>
+    		Campeonatos Nacionais: 
+    		<h:inputText value="#{timeManagedBean.time.campeonatosBrasileiros}"/>
+    		Campeonatos internacionais: 
+    		<h:inputText value="#{timeManagedBean.time.campeonatosInternacionais}"/>
+    	</h:panelGrid>
+    	
+    	<br/><h:commandButton value="Salvar Banco"
+    						  action="#{timeManagedBean.salvar}" />
+       </h:form>
+       
+       
+       <h1>Todos os Times</h1>
+       <h:dataTable value="#{timeManagedBean.allTimes}" var="t"
+                    border="1"  
+       >
+         <h:column>
+            <f:facet name="header">Código:</f:facet>
+             <h:outputText   value="#{t.cod}"/>
+         </h:column>
+         
+         <h:column>
+             <f:facet name="header">Nome:</f:facet>
+             <h:outputText   value="#{t.nome}"/>
+         </h:column>
+         
+         <h:column>
+             <f:facet name="header">Craque:</f:facet>
+             <h:outputText   value="#{t.craque}"/>
+         </h:column>
+         	
+         <h:column>
+             <f:facet name="header">Titulos Nacionais:</f:facet>
+             <h:outputText   value="#{t.campeonatosBrasileiros}"/>
+         </h:column>
+         
+         <h:column>
+             <f:facet name="header">Titulos Nacionais:</f:facet>
+             <h:outputText   value="#{t.campeonatosInternacionais}"/>
+         </h:column>
+         
+         
+       </h:dataTable>
+	 
+    </h:body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<h1>Semaforo</h1>
+		
+		<img id="myImage" src="imagems/verde.jpg"">
+		<button onclick="mudaImagem()">Troca de Cor</button>
+		
+		<script type="text/javascript">
+			function mudaImagem() {
+				if (document.getElementById('myImage').src.indexOf("imagems/verde.jpg") != -1) {
+					document.getElementById('myImage').src='imagems/amarelo.jpg'
+				}
+				else if (document.getElementById('myImage').src.indexOf("imagems/amarelo.jpg") != -1) {
+					document.getElementById('myImage').src='imagems/vermelho.jpg'
+				}
+				else {
+					document.getElementById('myImage').src='imagems/verde.jpg'	
+				}
+			}
+		</script>	
+	</body>
+</html>
