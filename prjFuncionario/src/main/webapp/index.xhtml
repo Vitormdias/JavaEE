@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+<h:head>
+ <meta charset="UTF-8" />
+</h:head>
+<h:body>
+
+<h:form id="formFuncionario">
+    <p:panelGrid columns="2">
+		<p:outputLabel value="Código"/>
+		<p:inputText value="#{funcionarioManagedBean.funcionario.codigo}"/>
+	    <p:outputLabel value="Nome"/>
+		<p:inputText value="#{funcionarioManagedBean.funcionario.nome}"/>
+		<p:outputLabel value="Salario"/>
+		<p:inputText value="#{funcionarioManagedBean.funcionario.salario}"/>
+		<p:outputLabel value="Departamento"/>
+		<p:selectOneRadio id="departamento" value="#{funcionarioManagedBean.funcionario.departamento}">
+			<f:selectItem itemLabel="Vendas" itemValue="Vendas"/>
+			<f:selectItem itemLabel="Compras" itemValue="Compras"/>
+			<f:selectItem itemLabel="Almoxarifado" itemValue="Almoxarifado"/>
+			<f:selectItem itemLabel="Producao" itemValue="Producao"/>
+			<f:selectItem itemLabel="RH" itemValue="RH"/>
+		</p:selectOneRadio>
+		<p:outputLabel  value="De Ferias"/>
+		<p:inputSwitch onLabel="Sim" offLabel="Não" value="#{funcionarioManagedBean.funcionario.deFerias}"/>
+		<p:outputLabel value="Estado Civil"/>
+		<p:selectOneMenu id="estadoCivil" value="#{funcionarioManagedBean.funcionario.estadoCivil}">
+			<f:selectItem itemLabel="Solteiro" itemValue="Solteiro"/>
+			<f:selectItem itemLabel="Casado" itemValue="Casado"/>
+			<f:selectItem itemLabel="Outro" itemValue="Outro"/>
+		</p:selectOneMenu>
+    </p:panelGrid>
+    <br/>
+    <p:commandButton value="Salvar" 
+                     action="#{funcionarioManagedBean.salvar()}"
+                     update=":formFuncionario :formTableFunc"
+    />
+</h:form>
+
+<h:form id="formTableFunc">
+	<br/>
+	<p:dataTable id="tableFuncionarios" var="func" value="#{funcionarioManagedBean.allFuncionarios}" 
+	editable="true" style="margin-bottom:20px" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} 
+                         {FirstPageLink} {PreviousPageLink} 
+                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+       <f:facet name="header">
+           Funcionarios Cadastrados
+       </f:facet>
+       
+       <p:ajax event="rowEdit" listener="#{funcionarioManagedBean.onRowEdit}" update=":formTableFunc:tableFuncionarios" />
+       
+       <p:column headerText="Código" filterBy="#{func.codigo}" filterMatchMode="contains">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{func.codigo}" /></f:facet>
+               <f:facet name="input"><p:inputText id="idFuncCod" value="#{func.codigo}" style="width:100%"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+       
+       <p:column headerText="Nome">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{func.nome}" /></f:facet>
+               <f:facet name="input"><p:inputText id="idFuncNome" value="#{func.nome}" style="width:100%"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+       
+       <p:column headerText="Salario">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{func.salario}" /></f:facet>
+               <f:facet name="input"><p:inputText id="idFuncSalario" value="#{func.salario}" style="width:100%"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+     
+       <p:column headerText="Departamento">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{func.departamento}" /></f:facet>
+               <f:facet name="input"><p:inputText id="idFuncDepartamento" value="#{func.departamento}" style="width:100%"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+       
+       <p:column headerText="De Ferias">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{func.deFerias}" /></f:facet>
+               <f:facet name="input"><p:inputText id="idFuncSexo" value="#{func.deFerias}" style="width:100%"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+       
+       <p:column headerText="Estado Civil">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{func.estadoCivil}" /></f:facet>
+               <f:facet name="input"><p:inputText id="idFuncEstadoCivil" value="#{func.estadoCivil}" style="width:100%"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+     
+       <p:column style="width:32px">
+           <p:rowEditor />
+           <p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+						style="text-align:center"
+						actionListener="#{funcionarioManagedBean.remover(func)}"
+						update=":formTableFunc:tableFuncionarios"/>
+           
+       </p:column>
+       
+    </p:dataTable>
+</h:form>
+
+
+</h:body>
+</html>
