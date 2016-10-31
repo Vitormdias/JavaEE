@@ -78,21 +78,41 @@ xmlns:p="http://primefaces.org/ui">
        <p:column headerText="Departamento">
            <p:cellEditor>
                <f:facet name="output"><h:outputText value="#{func.departamento}" /></f:facet>
-               <f:facet name="input"><p:inputText id="idFuncDepartamento" value="#{func.departamento}" style="width:100%"/></f:facet>
+               <f:facet name="input">
+               	<p:selectOneMenu id="departamento" value="#{funcionarioManagedBean.funcionario.departamento}">
+					<f:selectItem itemLabel="Vendas" itemValue="Vendas"/>
+					<f:selectItem itemLabel="Compras" itemValue="Compras"/>
+					<f:selectItem itemLabel="Almoxarifado" itemValue="Almoxarifado"/>
+					<f:selectItem itemLabel="Producao" itemValue="Producao"/>
+					<f:selectItem itemLabel="RH" itemValue="RH"/>
+				</p:selectOneMenu>
+			   </f:facet>
            </p:cellEditor>
        </p:column>
        
        <p:column headerText="De Ferias">
            <p:cellEditor>
                <f:facet name="output"><h:outputText value="#{func.deFerias}" /></f:facet>
-               <f:facet name="input"><p:inputText id="idFuncSexo" value="#{func.deFerias}" style="width:100%"/></f:facet>
+               <f:facet name="input">
+               		<p:selectOneMenu>
+               			<f:selectItem itemLabel="Sim" itemValue="true"/>
+               			<f:selectItem itemLabel="Não" itemValue="false"/>
+               		</p:selectOneMenu>
+               		<p:inputSwitch onLabel="Sim" offLabel="Não" value="#{funcionarioManagedBean.funcionario.deFerias}"/>
+               </f:facet>
            </p:cellEditor>
        </p:column>
        
        <p:column headerText="Estado Civil">
            <p:cellEditor>
                <f:facet name="output"><h:outputText value="#{func.estadoCivil}" /></f:facet>
-               <f:facet name="input"><p:inputText id="idFuncEstadoCivil" value="#{func.estadoCivil}" style="width:100%"/></f:facet>
+               <f:facet name="input">
+               		<p:selectOneMenu id="estadoCivil" value="#{funcionarioManagedBean.funcionario.estadoCivil}">
+						<f:selectItem itemLabel="Solteiro" itemValue="Solteiro"/>
+						<f:selectItem itemLabel="Casado" itemValue="Casado"/>
+						<f:selectItem itemLabel="Outro" itemValue="Outro"/>
+					</p:selectOneMenu>
+				</f:facet>
            </p:cellEditor>
        </p:column>
      

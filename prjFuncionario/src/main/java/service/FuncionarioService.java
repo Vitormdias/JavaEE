@@ -37,7 +37,7 @@ private EntityManagerFactory emf;
 	}
 
 
-	public void upDate(Funcionario funcionario) {
+	public void update(Funcionario funcionario) {
 		EntityManager em  = emf.createEntityManager();
 		em.getTransaction().begin();
 		em.merge(funcionario);

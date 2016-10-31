@@ -43,7 +43,7 @@ public class FuncionarioManagedBean {
 	
 	public void onRowEdit(RowEditEvent event) {
 		Funcionario p =  ((Funcionario) event.getObject());
-		prodService.upDate(p);
+		prodService.update(p);
 		
     }
 	
