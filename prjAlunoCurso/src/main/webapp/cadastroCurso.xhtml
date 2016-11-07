@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta charset="UTF-8" />
+</h:head>
+<h:body>
+
+    <p:link value="Menu" outcome="Menu"/>
+	<h:form id="formCurso">
+
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Nome:" />
+			<p:inputText value="#{cursoManagedBean.curso.nome}" />
+		</p:panelGrid>
+		
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Coordenador:" />
+			<p:inputText value="#{cursoManagedBean.curso.coordenador}" />
+		</p:panelGrid>
+
+		<p:commandButton value="Salvar" action="#{cursoManagedBean.salvar}"
+			update=":formCurso, :formTableCursos" />
+	</h:form>
+
+	<h:form id="formTableCursos">
+
+       <p:growl id="msgs" showDetail="true"/>	
+       
+       
+		<p:dataTable value="#{cursoManagedBean.cursos}" 
+		var="curso"	editable="true" id="tableCursos" >
+
+            <p:ajax event="rowEdit"       listener="#{cursoManagedBean.onRowEdit}"    />  
+	       
+			<p:column headerText="Código">
+				<h:outputText value="#{curso.id}" />
+			</p:column>
+
+			<p:column headerText="Nome">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{curso.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText id="modelInput1" value="#{curso.nome}"
+							style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+			<p:column headerText="Coordenador">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{curso.coordenador}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText id="modelInput2" value="#{curso.coordenador}"
+							style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+			<p:column style="width:70px" headerText="Opções">
+
+
+
+					<p:rowEditor  />
+					
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+						style="text-align:center"
+						actionListener="#{cursoManagedBean.remove(curso)}"
+						update=":formTableCursos" 
+						/>
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+
+
+
+
+
+
+
+
+</h:body>
+</html>
