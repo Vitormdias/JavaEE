@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta charset="UTF-8" />
+</h:head>
+<h:body>
+	<p:link value="Menu" outcome="menu" />
+	<h:form id="formCursos">
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Nome" />
+			<p:inputText value="#{cursoManagedBean.curso.nome}" />
+			<p:outputLabel value="Data de inicio: " />
+			<p:calendar value="#{cursoManagedBean.curso.dataInicio}" />
+			<p:outputLabel value="Quantidade Aluno" />
+			<br />
+			<p:inputText id="qtdAlunos"
+				value="#{cursoManagedBean.curso.qtdAlunos}" />
+			<p:slider for="qtdAlunos" />
+
+			<p:commandButton value="Salvar" action="#{cursoManagedBean.salvar}"
+				update=":formCursos, :formTableCursos" />
+		</p:panelGrid>
+	</h:form>
+
+	<h1>Cursos Cadastrados</h1>
+	<h:form id="formTableCursos">
+
+		<p:dataTable value="#{cursoManagedBean.listarCursos()}" var="cur"
+			editable="true" id="tableCursos" selectionMode="single"
+			selection="#{cursoManagedBean.cursoSelecionado}"
+			rowKey="#{cur.codigo}">
+
+			<p:ajax event="rowSelect" listener="#{cursoManagedBean.onRowSelect}"
+				update=":formTableAlunos, :formTableProfessores" />
+			<p:ajax event="rowUnselect"
+				listener="#{cursoManagedBean.onRowUnselect}"
+				update=":formTableAlunos, :formTableProfessores" />
+
+			<p:ajax event="rowEdit" listener="#{cursoManagedBean.onRowEdit}"
+				update=":formTableCursos:tableCursos" />
+
+			<p:column headerText="Código">
+				<h:outputText value="#{cur.codigo}" />
+			</p:column>
+
+			<p:column headerText="Nome">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{cur.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{cur.nome}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column headerText="Data de Inicio">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{cur.dataInicio}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:calendar value="#{cur.dataInicio}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column headerText="Quantidade de Alunos">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{cur.qtdAlunos}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{cur.qtdAlunos}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+
+			</p:column>
+			<p:column style="width:70px" headerText="Opções">
+				<p:rowEditor />
+				<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+					style="text-align:center"
+					actionListener="#{cursoManagedBean.remove(cur)}"
+					update=":formTableCursos, :formCursos" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+	<br />
+
+	<h:form id="formTableProfessores">
+		<br />
+		<p:outputLabel
+			value="Professores do Curso: #{cursoManagedBean.cursoSelecionado.nome}" />
+		<p:dataTable value="#{cursoManagedBean.professoresCurso}" var="prof"
+			id="tableCursos">
+
+			<p:column headerText="Código">
+				<h:outputText value="#{prof.numero}" />
+			</p:column>
+
+			<p:column headerText="Nome">
+				<p:outputLabel value="#{prof.nome}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+	<h:form id="formTableAlunos">
+		<br />
+		<p:outputLabel
+			value="Alunos do Curso: #{cursoManagedBean.cursoSelecionado.nome}" />
+		<p:dataTable value="#{cursoManagedBean.alunosCurso}" var="alu"
+			id="tableCursos">
+
+			<p:column headerText="Ra">
+				<h:outputText value="#{alu.ra}" />
+			</p:column>
+
+			<p:column headerText="Nome">
+				<p:outputLabel value="#{alu.nome}" />
+			</p:column>
+
+			<p:column headerText="Sexo">
+				<p:outputLabel value="#{alu.sexo}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

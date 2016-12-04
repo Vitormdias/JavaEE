@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta charset="UTF-8" />
+</h:head>
+<h:body>
+	<p:link value="Menu" outcome="menu" />
+	<h:form id="formProfessor">
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Nome:" />
+			<p:inputText value="#{professorManagedBean.professor.nome}" />
+			
+
+			<h:outputText value="Exclusivo: " />
+			<p:inputSwitch value="#{professorManagedBean.professor.exclusivo}" onLabel="Sim" offLabel="Não" />
+
+		</p:panelGrid>
+
+		<p:commandButton value="Salvar"
+			update=":formProfessor, :formTableProfessores"
+			action="#{professorManagedBean.salvar}" />
+	</h:form>
+
+	<h1>Professores Cadastrados</h1>
+	<h:form id="formTableProfessores">
+
+		<p:dataTable value="#{professorManagedBean.professores}" var="p"
+			editable="true" id="tableProfessores" selectionMode="single"
+			selection="#{professorManagedBean.professorSelecionado}"
+			rowKey="#{p.numero}">
+
+			<p:ajax event="rowEdit" listener="#{professorManagedBean.onRowEdit}"
+				update=":formTableProfessores:tableProfessores" />
+			
+			<p:ajax event="rowSelect"
+				listener="#{professorManagedBean.onRowSelect}"
+				update=":formTableCursos" />
+			<p:ajax event="rowUnselect"
+				listener="#{professorManagedBean.onRowUnselect}"
+				update=":formTableCursos" />
+			
+			
+			<p:column headerText="Número">
+				<h:outputText value="#{p.numero}" />
+			</p:column>
+
+			<p:column headerText="Nome: ">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{p.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{p.nome}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+			<p:column headerText="Exclusivo">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{p.exclusivo}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:selectOneMenu value="#{p.exclusivo}" style="width:100%">
+							<f:selectItem itemValue="false" itemLabel="Não" />
+							<f:selectItem itemValue="true" itemLabel="Sim" />						
+						</p:selectOneMenu>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column style="width:70px" headerText="Opções">
+				<p:rowEditor />
+				<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+					style="text-align:center"
+					actionListener="#{professorManagedBean.remove(p)}"
+					update=":formTableProfessores" />
+				<p:commandLink id="novoCurso"
+					styleClass="ui-icon  ui-icon-circle-plus" style="text-align:center"
+					onclick="PF('dlgAddCurso').show();"
+					update=":formTableProfessores, :formPickList"
+					actionListener="#{professorManagedBean.addCursoToProfessor(p)}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+	<p:dialog header="Seleção de Curso" widgetVar="dlgAddCurso"
+		modal="true" height="400" width="800">
+		<h:outputText value="Selecione um ou mais cursos" />
+		<h:form id="formPickList">
+			<p:pickList id="pickListCursos"
+				value="#{professorManagedBean.cursos}" var="c" itemLabel="#{c.nome}"
+				itemValue="#{c}" converter="converterCurso">
+				<f:facet name="sourceCaption">Disponíveis</f:facet>
+				<f:facet name="targetCaption">Associados</f:facet>
+			</p:pickList>
+			<p:commandButton value="Salvar"
+				action="#{professorManagedBean.associar}"
+				onclick="dlgAddCurso.hide();" />
+		</h:form>
+	</p:dialog>
+	<br/>
+	<h:form id="formTableCursos">
+	<br/>
+		<p:outputLabel
+			value="Cursos do Professor: #{professorManagedBean.professorSelecionado.nome}" />
+		<p:dataTable value="#{professorManagedBean.cursosProfessor}" var="cur"
+			id="tableCursos">
+
+			<p:column headerText="Código">
+				<h:outputText value="#{cur.codigo}" />
+			</p:column>
+
+			<p:column headerText="Nome">
+				<p:outputLabel value="#{cur.nome}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+
+
+
+</h:body>
+</html>
