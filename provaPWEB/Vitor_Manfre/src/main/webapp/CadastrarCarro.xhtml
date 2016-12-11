@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta charset="UTF-8" />
+
+</h:head>
+
+<h:body>
+	<h:form id="formCarros">
+		<p:panelGrid columns="2">
+			
+			<p:outputLabel value="Placa:" />
+			<p:inputText value="#{carroManagedBean.carro.placa}" />
+			
+			<p:outputLabel value="Modelo:" />
+			<p:inputText value="#{carroManagedBean.carro.modelo}" />
+			
+			<p:outputLabel value="Cor:" />
+			<p:inputText value="#{carroManagedBean.carro.cor}" />
+			
+			<p:outputLabel value="Montadora:" />
+			<p:selectOneMenu value="#{carroManagedBean.montadora}"
+				converter="converterMontadora">
+				<f:selectItem itemValue="" itemLabel="Selecione uma montadora" />
+				<f:selectItems value="#{carroManagedBean.montadoras}" var="aux"
+					itemValue="#{aux}" itemLabel="#{aux.nome}" />
+			</p:selectOneMenu>
+			
+			<p:outputLabel value="Locadora:" />
+			<p:selectOneMenu value="#{carroManagedBean.locadora}"
+				converter="converterMontadora">
+				<f:selectItem itemValue="" itemLabel="Selecione uma locadora" />
+				<f:selectItems value="#{carroManagedBean.locadoras}" var="aux"
+					itemValue="#{aux}" itemLabel="#{aux.nome}" />
+			</p:selectOneMenu>
+			
+		</p:panelGrid>
+		
+		<p:commandButton value="Salvar" action="#{carroManagedBean.salvar}"
+			update=":formAlunos, :formTableCarros" />
+	</h:form>
+	
+	<h1>Carros Cadastrados</h1>
+	
+	<h:form id="formTableCarros">
+	
+		<p:dataTable value="#{carroManagedBean.listaCarros}" var="car"
+			editable="true" id="tableCarros">
+			
+			<p:ajax event="rowEdit" listener="#{carroManagedBean.onRowEdit}"
+				update=":formTableCarros:tableCarros" />
+				
+			<p:column headerText="PLACA">
+				<h:outputText value="#{car.placa}" />
+			</p:column>
+			
+			<p:column headerText="Nome">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{car.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{car.nome}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+			<p:column headerText="Cor">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{car.cor}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{car.cor}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>		
+		
+			<p:column headerText="Montadora">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{car.montadora.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:selectOneMenu value="#{car.montadora}" converter="converterMontadora"
+							style="width:100%">
+							<f:selectItem itemValue="" itemLabel="Selecione uma montadora" />
+							<f:selectItems value="#{carroManagedBean.montadoras}" var="aux"
+								itemValue="#{aux}" itemLabel="#{aux.nome}" />
+						</p:selectOneMenu>
+
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+			<p:column headerText="Locadora">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{car.locadora.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:selectOneMenu value="#{car.locadora}" converter="converterLocadora"
+							style="width:100%">
+							<f:selectItem itemValue="" itemLabel="Selecione uma locadora" />
+							<f:selectItems value="#{carroManagedBean.locadoras}" var="aux"
+								itemValue="#{aux}" itemLabel="#{aux.nome}" />
+						</p:selectOneMenu>
+
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+			
+		</p:dataTable>
+	</h:form>
+</h:body>

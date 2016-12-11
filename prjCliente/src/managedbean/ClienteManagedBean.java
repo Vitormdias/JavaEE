@@ -1,6 +1,7 @@
 package managedbean;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 
@@ -9,7 +10,6 @@ import javax.faces.bean.SessionScoped;
 
 
 import modelos.Cliente;
-
 
 @ManagedBean
 @SessionScoped
@@ -23,7 +23,7 @@ public class ClienteManagedBean {
 		return msg;
 	}
 
-
+    
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
@@ -95,6 +95,7 @@ public class ClienteManagedBean {
 	public ArrayList<Cliente> getListaOrdenada() {
 		ArrayList<Cliente> ordenados = clientes;
 		ordenados.sort(Comparator.comparing(Cliente::getSaldo));
+		Collections.reverse(ordenados);
 		return ordenados;
 	}
 	
